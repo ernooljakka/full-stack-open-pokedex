@@ -1,22 +1,2 @@
-name: Hello World CI
 
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  say-hello:
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - name: Say hello
-        run: echo "Hello World!"
-
-      - name: Now it is
-        run: date
-
-      - name: Directory content
-        run: ls -l
 
