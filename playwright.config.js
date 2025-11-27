@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -42,4 +42,4 @@ export default defineConfig({
     reuseExistingServer: true,    // if server is already running, reuse it
     timeout: 120 * 1000           // max wait 2 minutes for server to start
   },
-});
+})
