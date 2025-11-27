@@ -10,14 +10,14 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:8080', // dev server URL
+    baseURL: 'http://localhost:5000', // dev server URL
     headless: true,
     viewport: { width: 1280, height: 720 },
     trace: 'on-first-retry',
   },
   webServer: {
     command: 'npm start',         // starts your app
-    url: 'http://localhost:8080', // must match baseURL
+    url: 'http://localhost:5000', // must match baseURL
     reuseExistingServer: false,
     timeout: 120 * 1000,
   },
