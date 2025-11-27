@@ -24,11 +24,11 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Run tests
+      - name: Run unit tests
         run: npm run test
 
-      - name: install PW
-        run: npx playwright install 
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
 
       - name: Run end-to-end tests
-        run: npm run test:e2e
+        run: npx playwright test

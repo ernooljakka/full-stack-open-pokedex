@@ -18,6 +18,7 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:8080', // your app URL
     trace: 'on-first-retry',
+    headless: true,
   },
 
   projects: [
@@ -39,7 +40,7 @@ export default defineConfig({
   webServer: {
     command: 'npm start',       // command to start your frontend
     url: 'http://localhost:8080', // the URL Playwright will wait for
-    reuseExistingServer: true,    // if server is already running, reuse it
-    timeout: 120 * 1000           // max wait 2 minutes for server to start
+    reuseExistingServer: false,    // if server is already running, reuse it
+    timeout: 120 * 1000,
   },
 })
