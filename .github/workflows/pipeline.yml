@@ -26,3 +26,5 @@ jobs:
 
       - name: Run tests
         run: npm run test
+      - name: Run end-to-end tests
+        run: npx playwright test
