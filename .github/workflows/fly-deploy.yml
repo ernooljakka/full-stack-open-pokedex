@@ -13,6 +13,8 @@ jobs:
     name: Deploy app
     runs-on: ubuntu-latest
     concurrency: deploy-group
+    outputs:
+      deploy_condition: ${{ steps.set_condition.outputs.condition }}
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
@@ -20,16 +22,17 @@ jobs:
       - name: Set deployment condition
         id: set_condition
         run: |
-          echo "CONDITION=false" >> $GITHUB_ENV
+          CONDITION=false
           MESSAGES=$(jq -r '.[].message' <<< "${{ toJson(github.event.commits) }}")
           for msg in $MESSAGES; do
             if [[ "$msg" == *"release"* ]]; then
-              echo "CONDITION=true" >> $GITHUB_ENV
+              CONDITION=true
             fi
           done
+          echo "condition=$CONDITION" >> $GITHUB_OUTPUT
 
       - name: Deploy to Fly
-        if: ${{ github.event_name == 'push' && env.CONDITION == 'true' }}
+        if: ${{ github.event_name == 'push' && steps.set_condition.outputs.condition == 'true' }}
         run: flyctl deploy --remote-only --yes
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
@@ -38,7 +41,7 @@ jobs:
     name: Tag Release
     needs: deploy
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && env.CONDITION == 'true'
+    if: github.ref == 'refs/heads/main' && needs.deploy.outputs.deploy_condition == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
