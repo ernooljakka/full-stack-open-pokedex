@@ -21,12 +21,16 @@ jobs:
 
       - name: Set deployment condition
         id: set_condition
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: |
           CONDITION=false
-          MESSAGES=$(jq -r '.[].message' <<< "${{ toJson(github.event.commits) }}")
-          for msg in $MESSAGES; do
+          # Convert JSON array to Bash array
+          MESSAGES=($(echo "$COMMIT_MESSAGES" | jq -r '.[]'))
+          for msg in "${MESSAGES[@]}"; do
             if [[ "$msg" == *"release"* ]]; then
               CONDITION=true
+              break
             fi
           done
           echo "condition=$CONDITION" >> $GITHUB_OUTPUT
@@ -52,3 +56,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           DRY_RUN: false
+
