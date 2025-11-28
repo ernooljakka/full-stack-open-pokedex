@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for full-stack-open-pokedex-withered-moon-6272 on 2025-11-28T08:52:31+02:00
+# fly.toml app configuration file generated for full-stack-open-pokedex-withered-moon-6272 on 2025-11-28T09:20:51+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -9,15 +9,15 @@ primary_region = 'arn'
 [build]
 
 [env]
-  PORT = "3001" # add this
+  PORT = '3001'
 
 [http_service]
-  internal_port = 3001 # ensure that this is same as PORT
+  internal_port = 3001
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
 [[vm]]
   memory = '1gb'
