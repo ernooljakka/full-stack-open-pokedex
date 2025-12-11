@@ -46,7 +46,10 @@ jobs:
         uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "**Deploy successful!**"  
+        content: |
+          **Deploy successful!**
+          A new build on ${{ github.repository }} is up.
+
 
   tag_release:
     name: Tag Release

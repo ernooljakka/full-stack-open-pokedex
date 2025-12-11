@@ -1,0 +1,17 @@
+name: Health Check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # daily at midnight
+
+jobs:
+  health_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if app is alive
+        uses: alstr/turbo-url-health-check@v2
+        with:
+          url: https://full-stack-open-pokedex-withered-moon-6272.fly.dev
+          timeout: 10
+          retries: 2
