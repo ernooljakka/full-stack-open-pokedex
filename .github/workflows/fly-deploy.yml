@@ -43,11 +43,10 @@ jobs:
 
       - name: Notify success
         if: success() && steps.set_condition.outputs.condition == 'true'
-        uses: tsickert/discord-webhook-notify@v1
+        uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: |
-            **Deploy successful!**  
+          content: "**Deploy successful!**"  
 
   tag_release:
     name: Tag Release
@@ -72,8 +71,7 @@ jobs:
     if: failure()
     steps:
       - name: Send failure notification
-        uses: tsickert/discord-webhook-notify@v1
+        uses: tsickert/discord-webhook@v7.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: |
-            **Deploy FAILED**
+          content: "**Deploy FAILED**"
